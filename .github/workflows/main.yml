@@ -1,0 +1,24 @@
+name: Stock Checker Bot
+on:
+  schedule:
+    - cron: '*/5 * * * *' # 每 5 分鐘自動執行一次
+  workflow_dispatch:      # 允許你手動在 GitHub 網頁上按「執行」
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install dependencies
+        run: npm install
+      - name: Install Playwright Browsers
+        run: npx playwright install chromium
+      - name: Run Monitor
+        run: node monitor.js
+        env:
+          LINE_ACCESS_TOKEN: ${{ secrets.LINE_ACCESS_TOKEN }}
+          LINE_USER_ID: ${{ secrets.LINE_USER_ID }}
+          PRODUCT_URL: ${{ secrets.PRODUCT_URL }}
