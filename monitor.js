@@ -41,13 +41,12 @@ const url = process.env.PRODUCT_URL ? process.env.PRODUCT_URL.trim() : '';
 
 if (!url) {
     console.error('❌ 錯誤：找不到 PRODUCT_URL，請檢查環境變數設定。');
-    return;
+    process.exit(1); // 使用 exit(1) 讓 GitHub Actions 標記此執行為失敗
 }
+
 async function checkStock() {
     // [測試模式] 程式一啟動就先發送一則測試訊息，確認 LINE 設定沒問題
-    // 測試成功收到訊息後，請將下面這行「刪除」或「加上註解 //」
     await sendLineNotification("✅ 這是測試訊息：LINE 通知功能正常！");
-    // await sendLineNotification("✅ 這是測試訊息：LINE 通知功能正常！");
 
     // 啟動瀏覽器
     // const browser = await chromium.launch({ headless: false });
