@@ -1,17 +1,17 @@
 name: Stock Checker Bot
 on:
   schedule:
-    - cron: '*/5 * * * *' # 每 5 分鐘自動執行一次
-  workflow_dispatch:      # 允許你手動在 GitHub 網頁上按「執行」
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
 
 jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4 # 升級到 v4
+      - uses: actions/setup-node@v4 # 升級到 v4
         with:
-          node-version: 18
+          node-version: 24 # 使用最新的 Node 24
       - name: Install dependencies
         run: npm install
       - name: Install Playwright Browsers

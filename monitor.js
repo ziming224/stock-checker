@@ -37,7 +37,12 @@ async function sendLineNotification(message) {
         console.error('❌ LINE 通知發送失敗:', err.message);
     }
 }
+const url = process.env.PRODUCT_URL ? process.env.PRODUCT_URL.trim() : '';
 
+if (!url) {
+    console.error('❌ 錯誤：找不到 PRODUCT_URL，請檢查環境變數設定。');
+    return;
+}
 async function checkStock() {
     // [測試模式] 程式一啟動就先發送一則測試訊息，確認 LINE 設定沒問題
     // 測試成功收到訊息後，請將下面這行「刪除」或「加上註解 //」
@@ -45,8 +50,9 @@ async function checkStock() {
     // await sendLineNotification("✅ 這是測試訊息：LINE 通知功能正常！");
 
     // 啟動瀏覽器
-    const browser = await chromium.launch({ headless: false }); // 改成 false，它會彈出瀏覽器視窗
-    // const browser = await chromium.launch({ headless: true });
+    // const browser = await chromium.launch({ headless: false });
+    // 改成 false，它會彈出瀏覽器視窗
+    const browser = await chromium.launch({ headless: true });
     // 建立一個新的瀏覽器上下文，並設定 User-Agent，讓請求看起來更像真人
     const context = await browser.newContext({
         userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36'
