@@ -1,5 +1,6 @@
 name: Stock Checker Bot
 on:
+  push:                   # 加入這行：每次 push 程式碼時自動執行
   schedule:
     - cron: '*/5 * * * *'
   workflow_dispatch:

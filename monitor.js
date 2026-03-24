@@ -62,7 +62,7 @@ async function checkStock() {
         console.log(`[${new Date().toLocaleString()}] 正在開啟網頁...`);
 
         // 前往網址，並等待網路活動停止（代表 JavaScript 可能跑完了）
-        await page.goto(process.env.PRODUCT_URL, { waitUntil: 'networkidle' });
+        await page.goto(url, { waitUntil: 'networkidle' });
 
         // 改用這個更寬鬆的寫法，要在進入網頁後才找
         // 加入 .first() 表示只要找到其中一個就好，避免因為網頁有多個按鈕而報錯
@@ -74,7 +74,7 @@ async function checkStock() {
 
         if (!isOutOfStock) {
             console.log('🔥 補貨了！準備發送通知...');
-            await sendLineNotification(`🔥 補貨了！快去買！\n連結：${process.env.PRODUCT_URL}`);
+            await sendLineNotification(`🔥 補貨了！快去買！\n連結：${url}`);
         } else {
             console.log('ℹ️ 目前依然：補貨中');
         }
