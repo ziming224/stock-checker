@@ -46,7 +46,7 @@ if (!url) {
 
 async function checkStock() {
     // [測試模式] 程式一啟動就先發送一則測試訊息，確認 LINE 設定沒問題
-    await sendLineNotification("✅ 這是測試訊息：LINE 通知功能正常！");
+    // await sendLineNotification("✅ 這是測試訊息：LINE 通知功能正常！");
 
     // 啟動瀏覽器
     // const browser = await chromium.launch({ headless: false });
